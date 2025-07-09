@@ -1,38 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react'
 import HomeNavbar from '../../components/HomeNavbar/HomeNavBar'
 import "./styles.css"
 
 export default function Appointment() {
+    const [checkedValue, setCheckedValue] = useState()
+   
   return (
     <div>
         <HomeNavbar />
         <form>
-            <p>Selecione o serviço desejado</p>
-            <div className="checkbox-container">
-                <input id="vac" name='vac' type="checkbox" /> 
-                <label htmlFor="vac">Vacinação</label>
-                <input id="bath" name='bath' type="checkbox" /> 
-                <label htmlFor="bath">Banho & Tosa</label>
-                <input id="consult" name='consult' type="checkbox" /> 
-                <label htmlFor="consult">Consulta</label>
+            <p className='title'>Agendar</p>
+            <p className='subtitle'>Selecione o serviço desejado</p>
+            <div className="checkboxes-container">
+                <div className="checkbox-container">
+                    <input className='checkbox' checked={checkedValue == 1} name="choice" value={1} id="vac" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
+                    <label className='checkbox-label' htmlFor="vac">Vacinação</label>
+                </div>
+                <div className="checkbox-container">
+                    <input className='checkbox' checked={checkedValue == 2} name="choice" value={2} id="bath" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
+                    <label className='checkbox-label' htmlFor="bath">Banho & Tosa</label>
+                </div>
+                <div className="checkbox-container">
+                    <input className='checkbox' checked={checkedValue == 3} name="choice" value={3} id="consult" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
+                    <label className='checkbox-label' htmlFor="consult">Consulta</label>
+                </div>
             </div>
-            <p>Informe os dados do pet</p>
+            <p className='subtitle'>Informe os dados do pet</p>
             <div className="input-container">
                 <div className="inputs">
-                    <p>Nome do pet</p>
-                    <input type="text" />
-                    <p>Tipo de animal</p>
-                    <input type="text" />
-                    <p>Genero</p>
-                    <input type="text" />
-                    <p>Data de nascimento</p>
-                    <input type="text" />
+                    <p className='appointment-input-label'>Nome do pet</p>
+                    <input className='appointment-input' type="text" />
+                    <p className='appointment-input-label'>Tipo de animal</p>
+                    <input className='appointment-input' type="text" />
+                    <p className='appointment-input-label'>Genero</p>
+                    <input className='appointment-input' type="text" />
+                    <p className='appointment-input-label'>Data de nascimento</p>
+                    <input className='appointment-input' type="text" />
                 </div>
                 <div className="calendar">
                     <p>Calendar</p>
                 </div>
             </div>
-            <button>Finalizar</button>
+            <button className='appointment-button'>Finalizar</button>
         </form>
     </div>
   )

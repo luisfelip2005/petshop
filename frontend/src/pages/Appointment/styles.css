@@ -1,3 +1,44 @@
-form {
-    
+.checkbox {
+    height: 15px;
+    width: 15px;
+    border: 2px solid #9747FF;
+    accent-color: #9747FF;
+}
+
+.checkboxes-container {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 100px;
+    padding: 0px 0px 0px 100px;
+}
+
+.checkbox-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.subtitle {
+    color: #414141;
+    padding: 17px 0px 17px 40px;
+}
+
+.input-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.title {
+    font-size: 22px;
+    padding: 0px 0px 10px 40px;
+    border-bottom: 1px solid #9747FF;
+}
+
+.appointment-input {
+    border: 1px solid #9747FF;
+    font-size: 18px;
+    padding: 5px 5px;
+    border-radius: 15px;
 }
