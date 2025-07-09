@@ -1,0 +1,42 @@
+.home-container {
+    justify-content: center;
+    align-items: center;
+}
+
+.products {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    max-width: 50em;
+    padding: 0px 15px;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.product-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-title {
+    padding: 50px 0px 15px 40px;
+    font-size: 22px;
+}
+
+.home-impact-phrase-container {
+    /* border: 2px solid black; */
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 10px 0px 0px 20px;
+    /* position: relative;
+    top: -50px; */
+    height: fit-content;
+}
+
+.home-impact-phrase {
+    font-size: 35px;
+    overflow: hidden;
+}

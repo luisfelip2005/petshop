@@ -1,0 +1,42 @@
+.left-container {
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.phrase-container {
+    display: flex;
+    align-items: center;
+}
+
+.patas-container {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.patas-img {
+    height: 13rem;
+    margin-right: -18px;
+}
+
+.phrase-container {
+    display: flex;
+    justify-content: center;
+    
+}
+
+.impact-phrase {
+    text-align: left;
+    font-size: 35px;
+    width: 70%;
+    line-height: 45px;
+}
+
+.yellow-text {
+    background-color: #EFDB6F;
+    border-radius: 15px;
+    padding: 2px 10px;
+}

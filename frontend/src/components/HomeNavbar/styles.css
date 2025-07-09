@@ -1,0 +1,24 @@
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 15px;
+    gap: 50px;
+}
+
+.shortcuts {
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.home-navbar-link {
+    text-decoration: none;
+    color: #000000;
+}
+
+.logo {
+    font-weight: 500;
+    font-size: 22px;
+    word-wrap: break-word;
+}

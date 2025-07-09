@@ -1,0 +1,33 @@
+
+.navbar {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10px;
+    position: absolute;
+}
+
+.navbar-logo {
+    font-size: 35px;
+    font-weight: 500;
+}
+
+.navbar-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: end;
+    padding: 0px 28px 0px 0px;
+    flex-wrap: wrap;
+}
+
+.navbar-link {
+    color: #FFFFFF;
+}
+
+.link {
+    text-decoration: none;
+    width: fit-content;
+    height: fit-content;
+}
