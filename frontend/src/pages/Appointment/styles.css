@@ -69,3 +69,9 @@
 .appointment-input-label {
     padding: 0px 0px 3px 5px;
 }
+
+.calendar-container {
+    padding: 0px 40px 0px 40px;
+    display: flex;
+    justify-content: center;
+}

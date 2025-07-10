@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import HomeNavbar from '../../components/HomeNavbar/HomeNavBar'
 import "./styles.css"
+import './calendar.css';
+import Calendar from 'react-calendar';
 
 export default function Appointment() {
     const [checkedValue, setCheckedValue] = useState()
+    const [value, onChange] = useState(new Date());
    
   return (
     <div>
@@ -37,8 +40,8 @@ export default function Appointment() {
                     <p className='appointment-input-label'>Data de nascimento</p>
                     <input className='appointment-input' type="text" />
                 </div>
-                <div className="calendar">
-                    <p>Calendar</p>
+                <div className="calendar-container">
+                    <Calendar onChange={onChange} value={value} />
                 </div>
             </div>
             <button className='appointment-button'>Finalizar</button>
