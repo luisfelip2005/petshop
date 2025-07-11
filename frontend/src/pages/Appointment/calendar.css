@@ -5,6 +5,7 @@
   border: 1px solid #a0a096;
   font-family: 'Arial', 'Helvetica', sans-serif;
   line-height: 1.125em;
+  border-radius: 20px;
 }
 
 .react-calendar--doubleView {
@@ -44,11 +45,15 @@
   display: flex;
   height: 44px;
   margin-bottom: 1em;
+  background-color: #9747FF;
 }
 
 .react-calendar__navigation button {
   min-width: 44px;
   background: none;
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .react-calendar__navigation button:disabled {
@@ -57,7 +62,7 @@
 
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
-  background-color: #e6e6e6;
+  /* background-color: #e6e6e6; */
 }
 
 .react-calendar__month-view__weekdays {
