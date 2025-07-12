@@ -46,7 +46,7 @@ class Appointment(models.Model):
         null=False,
         blank=False
     )
-    date = models.DateField(null=False, blank=False)
+    datetime = models.DateTimeField(null=False, blank=False, unique=True)
     petname = models.CharField(max_length=20, null=False)
     birthday = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -61,3 +61,6 @@ class Appointment(models.Model):
         null=False,
         blank=False
     )
+
+class AppointmentHour(models.Model):
+    hour = models.TimeField(null=False, unique=True)

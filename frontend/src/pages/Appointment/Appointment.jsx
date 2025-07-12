@@ -41,7 +41,7 @@ export default function Appointment() {
                     <input className='appointment-input' type="text" />
                 </div>
                 <div className="calendar-container">
-                    <Calendar onChange={onChange} value={value} />
+                    <Calendar minDate={new Date()} onChange={onChange} value={value} />
                 </div>
             </div>
             <button className='appointment-button'>Finalizar</button>

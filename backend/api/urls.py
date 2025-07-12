@@ -7,5 +7,6 @@ urlpatterns = [
     path("user/login", views.LoginUser.as_view()),
     path("product/all", views.AllProducts.as_view()),
     path("appointment/", views.AppointmentsListCreateView.as_view()),
-    path("appointment/<int:pk>/", views.AppointmentsGetUpdateDestroy.as_view())
+    path("appointment/<int:pk>/", views.AppointmentsGetUpdateDestroy.as_view()),
+    path("appointment/hours/", views.AppointmentsHourView.as_view())
 ]

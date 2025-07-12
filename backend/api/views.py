@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import status, generics
 from rest_framework.response import Response
-from .models import User, Product, Appointment
-from .serializers import UserSerializer, ProductSerializer, AppointmentSerializer
+from .models import User, Product, Appointment, AppointmentHour
+from .serializers import UserSerializer, AppointmentHourSerializer, ProductSerializer, AppointmentSerializer, AppointmentHour
 
 # Create your views here.
 class AllUsersView(APIView):
@@ -63,3 +63,19 @@ class AppointmentsListCreateView(generics.ListCreateAPIView):
 class AppointmentsGetUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Appointment.objects.all()
     serializer_class = AppointmentSerializer
+
+class AppointmentsHourView(APIView):
+    def get(self, request):
+        date = request.GET.get('date')
+        hours = AppointmentHour.objects.raw("""
+            SELECT id, hour 
+            FROM api_appointmenthour h 
+            WHERE h.hour NOT IN (
+                SELECT TIME(a.datetime) 
+                FROM api_appointment a 
+                WHERE DATE(a.datetime) = %s
+            );
+        """, [date])
+
+        serializer = AppointmentHourSerializer(hours, many=True)
+        return Response(serializer.data)

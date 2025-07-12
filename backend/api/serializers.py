@@ -1,4 +1,4 @@
-from .models import User, Product, Appointment
+from .models import User, Product, Appointment, AppointmentHour
 from rest_framework import serializers
 
 class UserSerializer(serializers.ModelSerializer):
@@ -14,4 +14,9 @@ class ProductSerializer(serializers.ModelSerializer):
 class AppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appointment
+        fields = '__all__'
+
+class AppointmentHourSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AppointmentHour
         fields = '__all__'
