@@ -53,18 +53,18 @@
 
 .inputs {
     padding: 0px 0px 0px 40px;
+    display: flex;
+    flex-direction: column;
 }
 
 .appointment-button {
-    padding: 7px 25px;
+    padding: 7px 15px;
     font-size: 18px;
     font-weight: 500;
     background-color: #EFDB6F;
     border-radius: 20px;
     border: 0px;
-    margin-left: 150px;
-    margin-top: 50px;
-    margin-bottom: 40px;
+    width: 150px;
 }
 
 .appointment-input-label {
@@ -75,4 +75,29 @@
     padding: 0px 40px 0px 40px;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+}
+
+.available-hours-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    padding: 10px 10px 0px 10px;
+    max-width: 330px;
+}
+
+.available-hour {
+    font-size: 18px;
+    padding: 3px 5px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0px;
+}
+
+.button-selected {
+    background-color: rgb(198, 194, 194);
 }

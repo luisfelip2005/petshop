@@ -1,12 +1,75 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import HomeNavbar from '../../components/HomeNavbar/HomeNavBar'
 import "./styles.css"
 import './calendar.css';
 import Calendar from 'react-calendar';
+import api from "../../services/api"
 
 export default function Appointment() {
     const [checkedValue, setCheckedValue] = useState()
     const [value, onChange] = useState(new Date());
+    const [availableHours, setAvailableHours] = useState([])
+    const [hourSelected, setHourSelected] = useState()
+    const [petname, setPetname] = useState()
+    const [gender, setGender] = useState()
+    const [birthday, setBirthday] = useState()
+    const [animal, setAnimal] = useState()
+    const [date, setDate] = useState()
+    const [hour, setHour] = useState()
+    const [service, setService] = useState()
+
+
+    const getAvailableHours = async () => {
+        try {
+            const { data } = await api.get("/appointment/hours/?date=2025-07-10")
+            console.log(data);
+            setAvailableHours(data)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const handleHourSelected = async (e, index, h) => {
+        e.preventDefault()
+        setHour(h)
+        setHourSelected(index)
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        switch (parseInt(checkedValue)) {
+            case 1:
+                setService('VACINA')
+                break
+            case 2:
+                setService('BANHO E TOSA')
+                break
+            case 3:
+                setService('CONSULTA')
+                break
+        }   
+        
+        // mecher nisso aqui amanha
+        const data = {
+        // "id": 1,
+        "service": service,
+        "datetime": `${date} ${hour}`,
+        "petname": petname,
+        "birthday": birthday,
+        // "created_at": "2025-07-08T19:44:06.481171Z",
+        "animal":animal,
+        "gender": gender,
+        "user": 3
+        }
+        console.log(data);
+        console.log(checkedValue);
+        
+
+    }
+
+    useEffect(() => {
+        getAvailableHours()
+    }, [])
    
   return (
     <div>
@@ -16,15 +79,15 @@ export default function Appointment() {
             <p className='subtitle'>Selecione o serviço desejado</p>
             <div className="checkboxes-container">
                 <div className="checkbox-container">
-                    <input className='checkbox' checked={checkedValue == 1} name="choice" value={1} id="vac" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
+                    <input className='checkbox' readOnly checked={checkedValue == 1} name="choice" value={1} id="vac" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
                     <label className='checkbox-label' htmlFor="vac">Vacinação</label>
                 </div>
                 <div className="checkbox-container">
-                    <input className='checkbox' checked={checkedValue == 2} name="choice" value={2} id="bath" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
+                    <input className='checkbox' readOnly checked={checkedValue == 2} name="choice" value={2} id="bath" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
                     <label className='checkbox-label' htmlFor="bath">Banho & Tosa</label>
                 </div>
                 <div className="checkbox-container">
-                    <input className='checkbox' checked={checkedValue == 3} name="choice" value={3} id="consult" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
+                    <input className='checkbox' readOnly checked={checkedValue == 3} name="choice" value={3} id="consult" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
                     <label className='checkbox-label' htmlFor="consult">Consulta</label>
                 </div>
             </div>
@@ -32,19 +95,28 @@ export default function Appointment() {
             <div className="input-container">
                 <div className="inputs">
                     <p className='appointment-input-label'>Nome do pet</p>
-                    <input className='appointment-input' type="text" />
+                    <input value={petname} onChange={(e) => setPetname(e.target.value)} className='appointment-input' type="text" />
                     <p className='appointment-input-label'>Tipo de animal</p>
-                    <input className='appointment-input' type="text" />
+                    <input value={animal} onChange={(e) => setAnimal(e.target.value)} className='appointment-input' type="text" />
                     <p className='appointment-input-label'>Genero</p>
-                    <input className='appointment-input' type="text" />
+                    <input value={gender} onChange={(e) => setGender(e.target.value)} className='appointment-input' type="text" />
                     <p className='appointment-input-label'>Data de nascimento</p>
-                    <input className='appointment-input' type="text" />
+                    <input value={birthday} onChange={(e) => setBirthday(e.target.value)} className='appointment-input' type="text" />
                 </div>
                 <div className="calendar-container">
-                    <Calendar minDate={new Date()} onChange={onChange} value={value} />
+                    <Calendar onClickDay={(v, e) => setDate(v)} minDate={new Date()} onChange={onChange} value={value} />
+                    <div className="available-hours-container">
+                        {availableHours.map((h, index) => {
+                            return(
+                                <button key={index} onClick={(e) => handleHourSelected(e, index, h.hour)} className={hourSelected == index ? 'available-hour button-selected' : 'available-hour'}>{h.hour.substring(0, 5)}</button>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
-            <button className='appointment-button'>Finalizar</button>
+            <div className="button-container">
+                <button onClick={(e) => handleSubmit(e)} className='appointment-button'>Finalizar</button>
+            </div>
         </form>
     </div>
   )
