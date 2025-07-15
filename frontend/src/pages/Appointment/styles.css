@@ -30,10 +30,16 @@
 }
 
 .input-container {
+    /* display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px; */
+}
+
+.appointment-container {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px;
 }
 
 .title {
@@ -72,7 +78,7 @@
 }
 
 .calendar-container {
-    padding: 0px 40px 0px 40px;
+    padding: 40px 40px 0px 40px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -82,7 +88,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: space-between;
+    justify-content: start;
     padding: 10px 10px 0px 10px;
     max-width: 330px;
 }

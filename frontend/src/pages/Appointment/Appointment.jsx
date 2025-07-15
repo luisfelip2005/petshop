@@ -19,9 +19,9 @@ export default function Appointment() {
     const [service, setService] = useState()
 
 
-    const getAvailableHours = async () => {
+    const getAvailableHours = async (date) => {
         try {
-            const { data } = await api.get("/appointment/hours/?date=2025-07-10")
+            const { data } = await api.get(`/appointment/hours/?date=${date}`)
             console.log(data);
             setAvailableHours(data)
         } catch (err) {
@@ -34,6 +34,12 @@ export default function Appointment() {
         setHour(h)
         setHourSelected(index)
     }
+
+    const handleDateChange = async (date) => {
+    // Transforma para 'YYYY-MM-DD'
+    const formatted = await date.toISOString().split('T')[0];
+    setDate(formatted);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -50,7 +56,7 @@ export default function Appointment() {
         }   
         
         // mecher nisso aqui amanha
-        const data = {
+        const info = {
         // "id": 1,
         "service": service,
         "datetime": `${date} ${hour}`,
@@ -61,57 +67,64 @@ export default function Appointment() {
         "gender": gender,
         "user": 3
         }
-        console.log(data);
-        console.log(checkedValue);
+        console.log(info);
         
+        try {
+            const { data } = await api.post("/appointment/", info)
+            console.log(data);
+        } catch (err) {
+            console.log(err);
+        } 
 
     }
 
     useEffect(() => {
-        getAvailableHours()
-    }, [])
+        getAvailableHours(date)
+    }, [date])
    
   return (
     <div>
         <HomeNavbar />
         <form>
             <p className='title'>Agendar</p>
-            <p className='subtitle'>Selecione o serviço desejado</p>
-            <div className="checkboxes-container">
-                <div className="checkbox-container">
-                    <input className='checkbox' readOnly checked={checkedValue == 1} name="choice" value={1} id="vac" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
-                    <label className='checkbox-label' htmlFor="vac">Vacinação</label>
-                </div>
-                <div className="checkbox-container">
-                    <input className='checkbox' readOnly checked={checkedValue == 2} name="choice" value={2} id="bath" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
-                    <label className='checkbox-label' htmlFor="bath">Banho & Tosa</label>
-                </div>
-                <div className="checkbox-container">
-                    <input className='checkbox' readOnly checked={checkedValue == 3} name="choice" value={3} id="consult" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
-                    <label className='checkbox-label' htmlFor="consult">Consulta</label>
-                </div>
-            </div>
-            <p className='subtitle'>Informe os dados do pet</p>
-            <div className="input-container">
-                <div className="inputs">
-                    <p className='appointment-input-label'>Nome do pet</p>
-                    <input value={petname} onChange={(e) => setPetname(e.target.value)} className='appointment-input' type="text" />
-                    <p className='appointment-input-label'>Tipo de animal</p>
-                    <input value={animal} onChange={(e) => setAnimal(e.target.value)} className='appointment-input' type="text" />
-                    <p className='appointment-input-label'>Genero</p>
-                    <input value={gender} onChange={(e) => setGender(e.target.value)} className='appointment-input' type="text" />
-                    <p className='appointment-input-label'>Data de nascimento</p>
-                    <input value={birthday} onChange={(e) => setBirthday(e.target.value)} className='appointment-input' type="text" />
-                </div>
-                <div className="calendar-container">
-                    <Calendar onClickDay={(v, e) => setDate(v)} minDate={new Date()} onChange={onChange} value={value} />
-                    <div className="available-hours-container">
-                        {availableHours.map((h, index) => {
-                            return(
-                                <button key={index} onClick={(e) => handleHourSelected(e, index, h.hour)} className={hourSelected == index ? 'available-hour button-selected' : 'available-hour'}>{h.hour.substring(0, 5)}</button>
-                            )
-                        })}
+            <div className='appointment-container'>
+                <div className='input-container'>
+                    <p className='subtitle'>Selecione o serviço desejado</p>
+                    <div className="checkboxes-container">
+                        <div className="checkbox-container">
+                            <input className='checkbox' readOnly checked={checkedValue == 1} name="choice" value={1} id="vac" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
+                            <label className='checkbox-label' htmlFor="vac">Vacinação</label>
+                        </div>
+                        <div className="checkbox-container">
+                            <input className='checkbox' readOnly checked={checkedValue == 2} name="choice" value={2} id="bath" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
+                            <label className='checkbox-label' htmlFor="bath">Banho & Tosa</label>
+                        </div>
+                        <div className="checkbox-container">
+                            <input className='checkbox' readOnly checked={checkedValue == 3} name="choice" value={3} id="consult" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
+                            <label className='checkbox-label' htmlFor="consult">Consulta</label>
+                        </div>
                     </div>
+                    <p className='subtitle'>Informe os dados do pet</p>
+                        <div className="inputs">
+                            <p className='appointment-input-label'>Nome do pet</p>
+                            <input value={petname} onChange={(e) => setPetname(e.target.value)} className='appointment-input' type="text" />
+                            <p className='appointment-input-label'>Tipo de animal</p>
+                            <input value={animal} onChange={(e) => setAnimal(e.target.value)} className='appointment-input' type="text" />
+                            <p className='appointment-input-label'>Genero</p>
+                            <input value={gender} onChange={(e) => setGender(e.target.value)} className='appointment-input' type="text" />
+                            <p className='appointment-input-label'>Data de nascimento</p>
+                            <input value={birthday} onChange={(e) => setBirthday(e.target.value)} className='appointment-input' type="text" />
+                        </div>
+                    </div>
+                    <div className="calendar-container">
+                        <Calendar minDate={new Date()} onChange={handleDateChange} />
+                        <div className="available-hours-container">
+                            {availableHours.map((h, index) => {
+                                return(
+                                    <button key={index} onClick={(e) => handleHourSelected(e, index, h.hour)} className={hourSelected == index ? 'available-hour button-selected' : 'available-hour'}>{h.hour.substring(0, 5)}</button>
+                                )
+                            })}
+                        </div>
                 </div>
             </div>
             <div className="button-container">
