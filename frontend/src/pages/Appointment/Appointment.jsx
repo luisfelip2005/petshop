@@ -7,7 +7,6 @@ import api from "../../services/api"
 
 export default function Appointment() {
     const [checkedValue, setCheckedValue] = useState()
-    const [value, onChange] = useState(new Date());
     const [availableHours, setAvailableHours] = useState([])
     const [hourSelected, setHourSelected] = useState()
     const [petname, setPetname] = useState()
@@ -107,13 +106,17 @@ export default function Appointment() {
                     <p className='subtitle'>Informe os dados do pet</p>
                         <div className="inputs">
                             <p className='appointment-input-label'>Nome do pet</p>
-                            <input value={petname} onChange={(e) => setPetname(e.target.value)} className='appointment-input' type="text" />
+                            <input placeholder='ex: Astolfo' value={petname} onChange={(e) => setPetname(e.target.value)} className='appointment-input' type="text" />
                             <p className='appointment-input-label'>Tipo de animal</p>
-                            <input value={animal} onChange={(e) => setAnimal(e.target.value)} className='appointment-input' type="text" />
+                            <input placeholder='ex: Cachorro' value={animal} onChange={(e) => setAnimal(e.target.value)} className='appointment-input' type="text" />
                             <p className='appointment-input-label'>Genero</p>
-                            <input value={gender} onChange={(e) => setGender(e.target.value)} className='appointment-input' type="text" />
+                            <select onChange={(e) => setGender(e.target.value)} className='appointment-input select' name="" id="">
+                                <option value="SELECT">SELECT</option>
+                                <option value="MASCULINO">MASCULINO</option>
+                                <option value="FEMININO">FEMININO</option>
+                            </select>
                             <p className='appointment-input-label'>Data de nascimento</p>
-                            <input value={birthday} onChange={(e) => setBirthday(e.target.value)} className='appointment-input' type="text" />
+                            <input value={birthday} onChange={(e) => setBirthday(e.target.value)} className='appointment-input' type="date" />
                         </div>
                     </div>
                     <div className="calendar-container">
