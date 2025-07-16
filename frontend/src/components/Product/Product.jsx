@@ -33,7 +33,7 @@ export default function Product({ name, price, category }) {
         <p className='product-name'>{name}</p>
         <p className='product-price'>R$ {price}</p>
       </div>
-      <div className='button-container'>
+      <div className='product-button-container'>
         <button className='product-button'><img src={compra} height={20} />Comprar</button>
       </div>
     </div>

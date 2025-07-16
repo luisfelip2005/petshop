@@ -51,14 +51,14 @@
 .appointment-input {
     border: 1px solid #9747FF;
     font-size: 18px;
-    padding: 5px 5px;
+    padding: 5px 8px;
     border-radius: 15px;
     margin-bottom: 10px;
     width: 85%;
 }
 
 .select {
-    width: 87%;
+    width: 88%;
     border-radius: 20px;
     background-color: #ffffff;
 }

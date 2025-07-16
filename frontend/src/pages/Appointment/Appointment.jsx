@@ -4,6 +4,7 @@ import "./styles.css"
 import './calendar.css';
 import Calendar from 'react-calendar';
 import api from "../../services/api"
+import { useNavigate } from 'react-router-dom';
 
 export default function Appointment() {
     const [checkedValue, setCheckedValue] = useState()
@@ -17,6 +18,7 @@ export default function Appointment() {
     const [hour, setHour] = useState()
     const [service, setService] = useState()
 
+    const navigate = useNavigate()
 
     const getAvailableHours = async (date) => {
         try {
@@ -40,9 +42,9 @@ export default function Appointment() {
     setDate(formatted);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        switch (parseInt(checkedValue)) {
+    const handleCheckboxChange = async (value) => {
+        setCheckedValue(value)
+        switch (parseInt(value)) {
             case 1:
                 setService('VACINA')
                 break
@@ -53,6 +55,14 @@ export default function Appointment() {
                 setService('CONSULTA')
                 break
         }   
+
+        console.log(service);
+        
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        
         
         // mecher nisso aqui amanha
         const info = {
@@ -69,10 +79,18 @@ export default function Appointment() {
         console.log(info);
         
         try {
-            const { data } = await api.post("/appointment/", info)
-            console.log(data);
+            const req = await api.post("/appointment/", info)
+            console.log(req);
+            const msg = req.request.statusText
+            console.log(msg);
+            alert(msg)
+            navigate("/")
+            console.log(req.data);
         } catch (err) {
-            console.log(err);
+            const errMessage = err.request.response
+            const errList = errMessage.split(",")
+            console.log(errList);
+            alert(errList)
         } 
 
     }
@@ -91,15 +109,15 @@ export default function Appointment() {
                     <p className='subtitle'>Selecione o serviço desejado</p>
                     <div className="checkboxes-container">
                         <div className="checkbox-container">
-                            <input className='checkbox' readOnly checked={checkedValue == 1} name="choice" value={1} id="vac" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
+                            <input className='checkbox' readOnly checked={checkedValue == 1} name="choice" value={1} id="vac" type="checkbox" onClick={(e) => handleCheckboxChange(e.target.value)} /> 
                             <label className='checkbox-label' htmlFor="vac">Vacinação</label>
                         </div>
                         <div className="checkbox-container">
-                            <input className='checkbox' readOnly checked={checkedValue == 2} name="choice" value={2} id="bath" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
+                            <input className='checkbox' readOnly checked={checkedValue == 2} name="choice" value={2} id="bath" type="checkbox" onClick={(e) => handleCheckboxChange(e.target.value)} /> 
                             <label className='checkbox-label' htmlFor="bath">Banho & Tosa</label>
                         </div>
                         <div className="checkbox-container">
-                            <input className='checkbox' readOnly checked={checkedValue == 3} name="choice" value={3} id="consult" type="checkbox" onClick={(e) => setCheckedValue(e.target.value)} /> 
+                            <input className='checkbox' readOnly checked={checkedValue == 3} name="choice" value={3} id="consult" type="checkbox" onClick={(e) => handleCheckboxChange(e.target.value)} /> 
                             <label className='checkbox-label' htmlFor="consult">Consulta</label>
                         </div>
                     </div>
@@ -116,7 +134,7 @@ export default function Appointment() {
                                 <option value="FEMININO">FEMININO</option>
                             </select>
                             <p className='appointment-input-label'>Data de nascimento</p>
-                            <input value={birthday} onChange={(e) => setBirthday(e.target.value)} className='appointment-input' type="date" />
+                            <input max={new Date().toISOString().split('T')[0]} onChange={(e) => setBirthday(e.target.value)} className='appointment-input' type="date" />
                         </div>
                     </div>
                     <div className="calendar-container">
