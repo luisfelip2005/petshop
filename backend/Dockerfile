@@ -9,4 +9,4 @@ COPY . .
 
 EXPOSE 5000
 
-CMD ["gunicorn", "--bind", ":5000", "api.wsgi:application"]
+CMD ["gunicorn", "--bind", ":5000", "backend.api.wsgi:application"]
