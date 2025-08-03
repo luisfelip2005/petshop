@@ -11,7 +11,7 @@ export default function Login() {
   const [password, setPassword] = useState("")
   const navigate = useNavigate()
 
-  const { userLoggedIn, setUserLoggedIn } = useContext(DataContext)
+  const { userLoggedIn, setUserLoggedIn, user_id, setUserId } = useContext(DataContext)
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -21,6 +21,10 @@ export default function Login() {
       console.log(data);
       setUserLoggedIn(true)
       navigate("/")
+      console.log(data.user_id);
+      setUserId(data.user_id)
+      console.log(user_id);
+      
       alert(data.msg)
     } catch(err) {
       console.log(err);

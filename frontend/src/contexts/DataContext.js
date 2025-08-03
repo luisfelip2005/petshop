@@ -4,6 +4,7 @@ export const DataContext = createContext()
 
 export function DataProvider({ children }) {
     const [userLoggedIn, setUserLoggedIn] = useState(false)
+    const [user_id, setUserId] = useState()
 
     useEffect(() => {
 
@@ -13,7 +14,9 @@ export function DataProvider({ children }) {
         <DataContext.Provider
             value={{ 
                 userLoggedIn,
-                setUserLoggedIn
+                setUserLoggedIn,
+                user_id, 
+                setUserId
              }}>
             { children }
         </DataContext.Provider>

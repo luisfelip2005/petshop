@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import HomeNavbar from '../../components/HomeNavbar/HomeNavBar'
 import "./styles.css"
 import './calendar.css';
 import Calendar from 'react-calendar';
 import api from "../../services/api"
 import { useNavigate } from 'react-router-dom';
+import { DataContext } from '../../contexts/DataContext';
 
 export default function Appointment() {
     const [checkedValue, setCheckedValue] = useState()
@@ -17,6 +18,8 @@ export default function Appointment() {
     const [date, setDate] = useState()
     const [hour, setHour] = useState()
     const [service, setService] = useState()
+
+    const { user_id } = useContext(DataContext)
 
     const navigate = useNavigate()
 
@@ -74,7 +77,7 @@ export default function Appointment() {
         // "created_at": "2025-07-08T19:44:06.481171Z",
         "animal":animal,
         "gender": gender,
-        "user": 3
+        "user": user_id
         }
         console.log(info);
         
