@@ -46,7 +46,7 @@ class LoginUser(APIView):
         print(user)
         if user:
             if user.checkPassword(password):
-                return Response({"msg": "User logged in!"}, status=status.HTTP_200_OK)
+                return Response({"msg": "User logged in!", "user_id": user.id}, status=status.HTTP_200_OK)
             else:
                 return Response({"msg": "wrong password!"}, status=status.HTTP_400_BAD_REQUEST)
         else:
